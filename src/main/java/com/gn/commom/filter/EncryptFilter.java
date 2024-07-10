@@ -13,7 +13,7 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 
 
-@WebFilter(servletNames= {"userCreateEnd"})
+@WebFilter(servletNames= {"userCreateEnd","userLoginEnd"})
 public class EncryptFilter extends HttpFilter implements Filter {
        
 
@@ -28,7 +28,6 @@ public class EncryptFilter extends HttpFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		PasswordEncodingWrapper pew = new PasswordEncodingWrapper((HttpServletRequest)request);
-		
 		chain.doFilter(pew, response);
 	}
 
