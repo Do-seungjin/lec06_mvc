@@ -1,7 +1,11 @@
 package com.gn.board.dao;
 import static com.gn.commom.sql.JDBCTemplate.close;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.gn.board.vo.Board;
 
@@ -27,5 +31,43 @@ public class BoardDao {
 			}
 		return result;
 		}
+	
+	public List<Board> selectBoardList(Board option, Connection conn){
+		List<Board> list = new ArrayList<Board>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			// 검색 조건이 없을 때 -> SELECT * FROM board
+			// 검색 조건이 있을 때 -> SELECT * FROM board WHERE board_title LIKE CONCAT('%',board_title,'%')
+			
+			String sql = "SELECT * FROM board";
+			if(option.getBoard_title() != null) {
+				sql += " WHERE board_title LIKE CONCAT('%','"+option.getBoard_title()+"','%')";
+			}
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Board resultVo = new Board(rs.getInt("board_no"),
+						rs.getString("board_title"),
+						rs.getString("board_content"),
+						rs.getInt("board_writer"),
+						rs.getTimestamp("reg_date").toLocalDateTime(),
+						rs.getTimestamp("mod_date").toLocalDateTime(),
+						rs.getString("ori_thumbnail"),
+						rs.getString("new_thumbnail"));
+				list.add(resultVo);
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	
 }
