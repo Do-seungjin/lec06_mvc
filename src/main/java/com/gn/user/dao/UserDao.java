@@ -1,5 +1,6 @@
 package com.gn.user.dao;
 
+import static com.gn.commom.sql.JDBCTemplate.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -12,7 +13,7 @@ public class UserDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
-			String sql = "INSERT INTO user (user_id,user_pw,user_name) VALUES (?,?,?) ";
+			String sql = "INSERT INTO `user` (`user_id`,`user_pw`,`user_name`) VALUES (?,?,?) ";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, u.getUser_id());
 			pstmt.setString(2, u.getUser_pw());
@@ -24,8 +25,8 @@ public class UserDao {
 			e.printStackTrace();
 		}finally {
 			try {
-				pstmt.close();
-				conn.close();
+				close(pstmt);
+				close(conn);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
