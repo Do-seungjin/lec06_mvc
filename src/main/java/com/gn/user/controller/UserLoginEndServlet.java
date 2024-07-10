@@ -28,8 +28,8 @@ public class UserLoginEndServlet extends HttpServlet {
 		// 회원가입 비밀번호 암호화 == 사용자 입력값을 암호화
 		String id = request.getParameter("user_id");
 		String pw = request.getParameter("user_pw");
-//		User u = new UserService().loginUser(id,pw);
-		User u = new User(1,"aa","m3PZqnzsc75hC4V6sNtwQ+D62EyZAVA3AV4N4dCtB29sg4cnQX4Nd3Ncl438jQW9O5LeLSO4EPafxDFiAvIBsQ==","아무개");
+		User u = new UserService().loginUser(id,pw);
+//		User u = new User(1,"aa","m3PZqnzsc75hC4V6sNtwQ+D62EyZAVA3AV4N4dCtB29sg4cnQX4Nd3Ncl438jQW9O5LeLSO4EPafxDFiAvIBsQ==","아무개");
 //		User u = null;
 		if(u != null) {
 			HttpSession session = request.getSession(true);
