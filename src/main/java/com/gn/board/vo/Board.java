@@ -6,7 +6,7 @@ public class Board {
 	private int board_no;
 	private String board_title;
 	private String board_content;
-	private String board_writer;
+	private int board_writer;
 	private LocalDateTime reg_date;
 	private LocalDateTime mod_date;
 	private String ori_thumbnail;
@@ -17,7 +17,7 @@ public class Board {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Board(int board_no, String board_title, String board_content, String board_writer, LocalDateTime reg_date,
+	public Board(int board_no, String board_title, String board_content, int board_writer, LocalDateTime reg_date,
 			LocalDateTime mod_date, String ori_thumbnail, String new_thumbnail) {
 		super();
 		this.board_no = board_no;
@@ -54,11 +54,11 @@ public class Board {
 		this.board_content = board_content;
 	}
 
-	public String getBoard_writer() {
+	public int getBoard_writer() {
 		return board_writer;
 	}
 
-	public void setBoard_writer(String board_writer) {
+	public void setBoard_writer(int board_writer) {
 		this.board_writer = board_writer;
 	}
 
@@ -100,7 +100,7 @@ public class Board {
 				+ "||" + board_writer + "||" + reg_date + "||" + mod_date
 				+ "||" + ori_thumbnail + "||" + new_thumbnail;
 	}
-	
+
 	
 	
 }

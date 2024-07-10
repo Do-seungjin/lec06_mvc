@@ -14,7 +14,7 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, b.getBoard_title());
 			pstmt.setString(2, b.getBoard_content());
-			pstmt.setString(3, b.getBoard_writer());
+			pstmt.setInt(3, b.getBoard_writer());
 			pstmt.setString(4, b.getOri_thumbnail());
 			pstmt.setString(5, b.getNew_thumbnail());
 			
