@@ -2,7 +2,9 @@ package com.gn.board.vo;
 
 import java.time.LocalDateTime;
 
-public class Board {
+import com.gn.commom.Paging;
+
+public class Board extends Paging{
 	private int board_no;
 	private String board_title;
 	private String board_content;

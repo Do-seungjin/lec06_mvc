@@ -45,6 +45,7 @@ public class BoardDao {
 			if(option.getBoard_title() != null) {
 				sql += " WHERE board_title LIKE CONCAT('%','"+option.getBoard_title()+"','%')";
 			}
+			sql +=" LIMIT "+option.getLimitPageNo()+", "+option.getNumPerPage();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -69,5 +70,33 @@ public class BoardDao {
 		return list;
 	}
 	
-	
+	public int selectBoardCount(Board option, Connection conn) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT COUNT(*) AS cnt FROM board";
+			// 검색어로 검색하였을때
+			if(option.getBoard_title()!=null) {
+				sql += " WHERE board_title LIKE CONCAT('%','"+option.getBoard_title()+"','%')";
+			}
+			
+			
+			pstmt=conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
 }

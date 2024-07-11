@@ -27,12 +27,19 @@ public class BoardListServlet extends HttpServlet {
 		Board option = new Board();
 		option.setBoard_title(title);
 		
-		// 전체 목록 개수 -> 페이징바 구성
+		String nowPage = request.getParameter("nowPage");
+		if(nowPage!=null) {
+			option.setNowPage(Integer.parseInt(nowPage));
+		}
 		
+		// 전체 목록 개수 -> 페이징바 구성
+		option.setTotalData(new BoardService().selectBoardCount(option));
 		
 		List<Board> list = new BoardService().selectBoardList(option);
-		RequestDispatcher view = request.getRequestDispatcher("/views/board/list.jsp");
+		
+		request.setAttribute("paging", option);
 		request.setAttribute("resultList", list);
+		RequestDispatcher view = request.getRequestDispatcher("/views/board/list.jsp");
 		view.forward(request, response);
 		
 	}
