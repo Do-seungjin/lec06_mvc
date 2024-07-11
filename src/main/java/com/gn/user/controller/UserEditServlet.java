@@ -1,7 +1,6 @@
-package com.gn.board.controller;
+package com.gn.user.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,35 +9,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gn.board.service.BoardService;
-import com.gn.board.vo.Board;
-
-@WebServlet("/board/list")
-public class BoardListServlet extends HttpServlet {
+@WebServlet("/user/edit")
+public class UserEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public BoardListServlet() {
+
+    public UserEditServlet() {
         super();
     }
 
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("board_title");
-		// 검색 조건의 역할을 할 것 이다.
-		Board option = new Board();
-		option.setBoard_title(title);
-		
-		// 전체 목록 개수 -> 페이징바 구성
-		
-		
-		List<Board> list = new BoardService().selectBoardList(option);
-		RequestDispatcher view = request.getRequestDispatcher("/views/board/list.jsp");
-		request.setAttribute("resultList", list);
+		String no = request.getParameter("user_no");
+		String id = request.getParameter("user_id");
+		request.setAttribute("no", no);
+		request.setAttribute("id", id);
+		RequestDispatcher view = request.getRequestDispatcher("/views/user/edit.jsp");
 		view.forward(request, response);
-		
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		doGet(request, response);
 	}
 
